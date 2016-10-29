@@ -150,6 +150,14 @@ void MyWindow::resizeEvent(QResizeEvent *)
     //ProjectionMatrix.perspective(70.0f, (float)this->width()/(float)this->height(), 0.3f, 100.0f);
     float c = 2.0f;
     ProjectionMatrix.ortho(-0.4f * c, 0.4f * c, -0.3f * c, 0.3f * c, 0.1f, 100.0f);
+
+    float w2 = (float) this->width()  / 2.0f;
+    float h2 = (float) this->height() / 2.0f;
+
+    ViewPortMatrix = QMatrix4x4(w2,   0.0f, 0.0f, 0.0f,
+                                0.0f, h2,   0.0f, 0.0f,
+                                0.0f, 0.0f, 1.0f, 0.0f,
+                                w2,   h2,   0.0f, 1.0f);
 }
 
 void MyWindow::render()
@@ -209,6 +217,8 @@ void MyWindow::render()
         mProgram->setUniformValue("ModelViewMatrix", mv1);
         mProgram->setUniformValue("NormalMatrix", mv1.normalMatrix());
         mProgram->setUniformValue("MVP", ProjectionMatrix * mv1);
+
+        mProgram->setUniformValue("ViewportMatrix", ViewPortMatrix);
 
         glDrawElements(GL_TRIANGLES, 3 * mOgre->getnFaces(), GL_UNSIGNED_INT, ((GLubyte *)NULL + (0)));
 

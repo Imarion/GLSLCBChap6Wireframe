@@ -62,7 +62,7 @@ private:
     GLuint mVAO, mVBO, mIBO;
 
     VBOMesh *mOgre;
-    QMatrix4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+    QMatrix4x4 ModelMatrix, ViewMatrix, ProjectionMatrix, ViewPortMatrix;
 
     float angle, tPrev, rotSpeed;
 
